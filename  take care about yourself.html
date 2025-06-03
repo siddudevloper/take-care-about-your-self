@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Take Care - Medical Help</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f0f8ff;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #2c7873;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.294);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .option-btn {
+      background-color: #4fb0c6;
+      border: none;
+      color: white;
+      padding: 18px 30px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(79,176,198,0.6);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      flex: 1 1 180px;
+      max-width: 220px;
+      text-align: center;
+      user-select: none;
+    }
+    .option-btn:hover {
+      background-color: #347f8e;
+      transform: translateY(-5px);
+    }
+
+    section {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      display: none;
+      animation: fadeIn 1s forwards;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2 {
+      color: #2c7873;
+      margin-bottom: 15px;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .step-list, .medicine-list, .food-list {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    img.topic-img {
+      display: block;
+      margin: 20px auto 30px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .consult-doctor {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-top: 25px;
+      color: #d32f2f;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Falling tablets animation */
+
+    .tablet {
+      position: fixed;
+      width: 30px;
+      height: 15px;
+      background: linear-gradient(45deg, #ff7979, #ff6b6b);
+      border-radius: 15px;
+      opacity: 0.8;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 50;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+      transform-origin: center;
+    }
+
+    .tablet:before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 8px;
+      width: 14px;
+      height: 3px;
+      background: rgb(255, 255, 255);
+      border-radius: 10px;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  Take Care - Medical Help
+</header>
+
+<div class="container">
+  <div class="options">
+    <button class="option-btn" data-topic="fever">Fever</button>
+    <button class="option-btn" data-topic="sick">Sick</button>
+    <button class="option-btn" data-topic="cold">Cold</button>
+    <button class="option-btn" data-topic="allergy">Allergy</button>
+    <button class="option-btn" data-topic="skin">Skin Problem</button>
+  </div>
+
+  <!-- Fever Section -->
+  <section id="fever" class="topic-section">
+    <h2>Fever</h2>
+    <img class="topic-img" src="https://images.unsplash.com/photo-1588776814546-6826f1fdb5e1?auto=format&fit=crop&w=800&q=60" alt="Thermometer and fever">
+    <h3>Recovery Steps:</h3>
+    <ol class="step-list">
+      <li>Rest properly and keep yourself hydrated.</li>
+      <li>Take lukewarm baths or use a cool compress.</li>
+      <li>Wear light clothes to help sweat evaporation.</li>
+      <li>Monitor temperature regularly.</li>
+      <li>Use fever-reducing medicines if needed.</li>
+    </ol>
+    <h3>Medicines:</h3>
+    <ul class="medicine-list">
+      <li>Paracetamol (acetaminophen)</li>
+      <li>Ibuprofen (if advised)</li>
+    </ul>
+    <h3>Foods to Eat:</h3>
+    <ul class="food-list">
+      <li>Water, herbal teas, clear soups</li>
+      <li>Fruits rich in vitamin C (orange, kiwi)</li>
+      <li>Light meals like porridge or khichdi</li>
+    </ul>
+    <h3>Foods to Avoid:</h3>
+    <ul class="food-list">
+      <li>Spicy and oily foods</li>
+      <li>Caffeinated or alcoholic drinks</li>
+      <li>Heavy, greasy meals</li>
+    </ul>
+    <div class="consult-doctor">Consult a doctor if fever lasts more than 3 days or is above 102°F (39°C).</div>
+  </section>
+
+  <!-- Sick Section -->
+  <section id="sick" class="topic-section">
+    <h2>Sick</h2>
+    <img class="topic-img" src="https://images.unsplash.com/photo-1588776813846-3bf3787d5b57?auto=format&fit=crop&w=800&q=60" alt="Person feeling sick">
+    <h3>Recovery Steps:</h3>
+    <ol class="step-list">
+      <li>Get plenty of rest and avoid physical exertion.</li>
+      <li>Drink fluids frequently to stay hydrated.</li>
+      <li>Eat nourishing but light foods.</li>
+      <li>Keep the environment calm and stress-free.</li>
+      <li>Take medicines as prescribed by a doctor.</li>
+    </ol>
+    <h3>Medicines:</h3>
+    <ul class="medicine-list">
+      <li>Multivitamins</li>
+      <li>Symptom-specific medicines (consult doctor)</li>
+    </ul>
+    <h3>Foods to Eat:</h3>
+    <ul class="food-list">
+      <li>Soups, smoothies, fruits, and vegetables</li>
+      <li>Foods rich in zinc and vitamins</li>
+    </ul>
+    <h3>Foods to Avoid:</h3>
+    <ul class="food-list">
+      <li>Processed junk food</li>
+      <li>Excess sugar and salt</li>
+    </ul>
+    <div class="consult-doctor">Consult a doctor if symptoms worsen or persist beyond a few days.</div>
+  </section>
+
+  <!-- Cold Section -->
+  <section id="cold" class="topic-section">
+    <h2>Cold</h2>
+    <img class="topic-img" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=60" alt="Person with cold">
+    <h3>Recovery Steps:</h3>
+    <ol class="step-list">
+      <li>Rest and avoid cold environments.</li>
+      <li>Use saline nasal spray and steam inhalation.</li>
+      <li>Drink warm fluids like tea and soups.</li>
+      <li>Use tissues and wash hands often.</li>
+      <li>Take over-the-counter cold medicines if needed.</li>
+    </ol>
+    <h3>Medicines:</h3>
+    <ul class="medicine-list">
+      <li>Antihistamines</li>
+      <li>Decongestants</li>
+      <li>Cough syrups</li>
+    </ul>
+    <h3>Foods to Eat:</h3>
+    <ul class="food-list">
+      <li>Warm broths, honey, ginger tea</li>
+      <li>Vitamin C rich fruits</li>
+    </ul>
+    <h3>Foods to Avoid:</h3>
+    <ul class="food-list">
+      <li>Dairy products (may increase mucus)</li>
+      <li>Cold and fried foods</li>
+    </ul>
+    <div class="consult-doctor">Consult if cold lasts more than 10 days or worsens.</div>
+  </section>
+
+  <!-- Allergy Section -->
+  <section id="allergy" class="topic-section">
+    <h2>Allergy</h2>
+    <img class="topic-img" src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=60" alt="Allergic reaction">
+    <h3>Recovery Steps:</h3>
+    <ol class="step-list">
+      <li>Avoid the allergen (dust, pollen, certain foods).</li>
+      <li>Use antihistamines as recommended.</li>
+      <li>Keep the skin clean and moisturized if rash is present.</li>
+      <li>Use cold compresses for itching or swelling.</li>
+      <li>Keep a diary to track allergy triggers.</li>
+    </ol>
+    <h3>Medicines:</h3>
+    <ul class="medicine-list">
+      <li>Antihistamines</li>
+      <li>Corticosteroid creams</li>
+      <li>Decongestants (if nasal symptoms)</li>
+    </ul>
+    <h3>Foods to Eat:</h3>
+    <ul class="food-list">
+      <li>Anti-inflammatory foods like turmeric, ginger</li>
+      <li>Fresh fruits and vegetables</li>
+    </ul>
+    <h3>Foods to Avoid:</h3>
+    <ul class="food-list">
+      <li>Common allergens (nuts, shellfish if allergic)</li>
+      <li>Processed foods with additives</li>
+    </ul>
+    <div class="consult-doctor">Consult immediately for severe reactions or difficulty breathing.</div>
+  </section>
+
+  <!-- Skin Problem Section -->
+  <section id="skin" class="topic-section">
+    <h2>Skin Problem</h2>
+    <img class="topic-img" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=60" alt="Skin care">
+    <h3>Recovery Steps:</h3>
+    <ol class="step-list">
+      <li>Keep skin clean and moisturized daily.</li>
+      <li>Avoid harsh soaps and hot water.</li>
+      <li>Use sunscreen to protect from UV rays.</li>
+      <li>Apply prescribed ointments for rashes or infections.</li>
+      <li>Maintain a healthy diet and hydration.</li>
+    </ol>
+    <h3>Medicines:</h3>
+    <ul class="medicine-list">
+      <li>Antifungal creams</li>
+      <li>Hydrocortisone creams</li>
+      <li>Antibiotic ointments if infected</li>
+    </ul>
+    <h3>Foods to Eat:</h3>
+    <ul class="food-list">
+      <li>Foods rich in vitamins A, C, E (carrots, berries, nuts)</li>
+      <li>Plenty of water</li>
+    </ul>
+    <h3>Foods to Avoid:</h3>
+    <ul class="food-list">
+      <li>Excess sugar and processed foods</li>
+      <li>Foods causing inflammation (fried foods)</li>
+    </ul>
+    <div class="consult-doctor">Consult for persistent or worsening skin conditions.</div>
+  </section>
+</div>
+
+<script>
+  // Show/hide sections on button click
+  const buttons = document.querySelectorAll('.option-btn');
+  const sections = document.querySelectorAll('.topic-section');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const topic = btn.getAttribute('data-topic');
+      sections.forEach(sec => {
+        sec.classList.toggle('active', sec.id === topic);
+      });
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  // Falling tablets animation
+
+  function createTablet() {
+    const tablet = document.createElement('div');
+    tablet.classList.add('tablet');
+    tablet.style.left = Math.random() * window.innerWidth + 'px';
+    tablet.style.animationDuration = 5 + Math.random() * 5 + 's';
+    tablet.style.width = 20 + Math.random() * 20 + 'px';
+    tablet.style.height = 10 + Math.random() * 10 + 'px';
+    tablet.style.animationDelay = Math.random() * 5 + 's';
+    tablet.style.background = `linear-gradient(45deg, 
+      hsl(${Math.random() * 360}, 70%, 70%), 
+      hsl(${Math.random() * 360}, 70%, 50%))`;
+    document.body.appendChild(tablet);
+
+    // Remove tablet after animation ends (10s max)
+    setTimeout(() => {
+      tablet.remove();
+    }, 10000);
+  }
+
+  // Create tablets every 300ms
+  setInterval(createTablet, 300);
+</script>
+
+</body>
+</html>
