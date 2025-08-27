@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>MeghavathSurya Naik Youth Association | Harshaguda</title>
+  <meta name="description" content="Official website of Surya Naik Youth Association (SNYA), Harshaguda Village, Maheshwaram Mandal, Ranga Reddy District, Telangana, India. Register members, view events, and support Vinayaka Chavithi service." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23ffcc00'/><text x='50' y='58' font-size='52' text-anchor='middle' fill='%23000'>☀️</text></svg>"> 
+  
+  <!-- GSAP for animations -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-bqv3k9Xph+WjX7H3vZqXkM0o1uL2u5bM3kq9J8mJb2JrYQj4p7aT+vV7Yq+8Jb7uO8r9d8rX1U+R8j3aVtT1OQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-5m1vP8Q0Gv2j8l1V0y1kJj5cKX3m2TQ+qkJmT2d7JcC8x0r3b6nA+vR5Qe+0q3p3gqfE7H0V0nQ7l1xI8v/9WQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Confetti for celebrations -->
+  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root{
+      --bg1:#0b1220; /* deep night */
+      --bg2:#1a2140; /* dusk */
+      --brand:#ffcc00; /* sun */
+      --accent:#ff6b6b; /* festive */
+      --accent2:#00e5ff; /* neon */
+      --text:#e8f0ff;
+      --muted:#a3b0d0;
+      --card:#121931cc;
+      --glass:rgba(255,255,255,0.08);
+      --ring:0 0 0 2px rgba(255,204,0,0.35),0 0 40px 6px rgba(255,204,0,0.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      color:var(--text);
+      background:linear-gradient(140deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* Animated gradient grid background */
+    .bg-grid{
+      position:fixed;inset:0;z-index:-2;
+      background:
+        radial-gradient(60vmax 60vmax at 15% 10%, rgba(255,204,0,0.12), transparent 60%),
+        radial-gradient(50vmax 50vmax at 85% 30%, rgba(0,229,255,0.12), transparent 60%),
+        linear-gradient(transparent 0 0);
+      pointer-events:none;
+    }
+    .grid-lines{
+      position:fixed;inset:0;z-index:-1;opacity:.14;
+      background-size:60px 60px, 60px 60px;
+      background-image:
+        linear-gradient(to right, #ffffff22 1px, transparent 1px),
+        linear-gradient(to bottom, #ffffff22 1px, transparent 1px);
+      animation: floatGrid 24s linear infinite;
+    }
+    @keyframes floatGrid{from{transform:translate3d(0,0,0)}to{transform:translate3d(-60px,-60px,0)}}
+
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(170%) blur(10px);
+      background:linear-gradient(to right, #0b1220dd, #1a2140cc);
+      border-bottom:1px solid #ffffff1a;
+    }
+    .container{max-width:1200px;margin-inline:auto;padding:16px}
+    .nav{display:flex;align-items:center;gap:16px}
+    .brand{
+      display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);
+      font-weight:900;letter-spacing:.4px
+    }
+    .brand .sun{font-size:26px;filter:drop-shadow(0 0 18px rgba(255,204,0,.55))}
+    .navlinks{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+    .navlinks a{color:var(--muted);text-decoration:none;font-weight:600}
+    .navlinks a:hover{color:var(--brand)}
+    .cta{
+      background:linear-gradient(135deg,var(--brand),#ffd84d);
+      border:0;color:#000;padding:10px 16px;border-radius:14px;font-weight:800;
+      box-shadow:var(--ring);cursor:pointer
+    }
+
+    .hero{position:relative;min-height:72vh;display:grid;place-items:center;padding:40px 16px}
+    .hero-card{
+      max-width:1100px;width:100%;
+      background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+      border:1px solid #ffffff22;border-radius:26px;padding:32px;overflow:hidden;
+      box-shadow:0 30px 80px -20px rgba(0,0,0,.5), inset 0 0 0 1px #ffffff12;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px}
+    @media (max-width: 900px){.hero-grid{grid-template-columns:1fr}}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff2a;font-weight:700;color:#fff}
+    .headline{font-size:clamp(28px,6vw,52px);line-height:1.06;margin:12px 0 8px;font-weight:900}
+    .sub{color:var(--muted);max-width:60ch}
+    .floating-ganesha{
+      width:100%;aspect-ratio:1/1.1;border-radius:20px;position:relative;overflow:hidden;
+      background:radial-gradient(80% 80% at 60% 30%, rgba(255,204,0,0.20), transparent 60%),
+                 linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border:1px solid #ffffff22
+    }
+    .floating-ganesha svg{width:100%;height:100%;opacity:.92;filter:drop-shadow(0 15px 35px rgba(255,204,0,0.35))}
+
+    .section{padding:72px 16px}
+    .section .card{background:var(--card);backdrop-filter:blur(8px);border:1px solid #ffffff1e;border-radius:22px;padding:22px}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    @media (max-width: 900px){.grid-3{grid-template-columns:1fr}}
+
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid #ffffff22;background:#ffffff14;color:#fff}
+
+    /* Registration form */
+    form#memberForm{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+    form#memberForm .full{grid-column:1 / -1}
+    label{font-weight:700;font-size:14px;color:#d7e2ff}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border-radius:14px;border:1px solid #ffffff26;background:#0e1530;color:#eaf0ff;
+      outline:none
+    }
+    input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(0,229,255,0.28)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:0;font-weight:800;cursor:pointer}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),#ffd84d);color:#000;box-shadow:var(--ring)}
+    .btn.ghost{background:#ffffff12;border:1px solid #ffffff22;color:#fff}
+
+    /* Table */
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    thead th{color:#9fb1e6;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+    tbody tr{background:#111933;border:1px solid #ffffff12}
+    tbody td, thead th{padding:12px 14px}
+    tbody tr td:first-child{border-radius:14px 0 0 14px}
+    tbody tr td:last-child{border-radius:0 14px 14px 0}
+
+    /* Timeline */
+    .timeline{position:relative}
+    .timeline::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:4px;background:linear-gradient(var(--accent),var(--brand));border-radius:8px;opacity:.6}
+    .event{position:relative;margin-left:64px;margin-bottom:24px;background:#111933;border:1px solid #ffffff22;border-radius:16px;padding:14px}
+    .event::before{content:"";position:absolute;left:-48px;top:16px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff, var(--brand));box-shadow:0 0 0 4px #0008}
+
+    /* Footer */
+    footer{padding:40px 16px;border-top:1px solid #ffffff1a;background:#0b1220bb}
+
+    /* Tiny utility classes for spacing and text */
+    .mt-0{margin-top:0}.mt-4{margin-top:16px}.mt-6{margin-top:24px}.mt-8{margin-top:32px}.mt-12{margin-top:48px}
+    .mb-0{margin-bottom:0}.mb-4{margin-bottom:16px}.mb-6{margin-bottom:24px}.mb-8{margin-bottom:32px}.mb-12{margin-bottom:48px}
+    .text-center{text-align:center}
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+    /* Scroll cue */
+    .scroll-cue{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);opacity:.7;font-size:12px}
+
+    /* Dialog/Toast */
+    .toast{position:fixed;right:20px;bottom:20px;background:#111933;border:1px solid #ffffff2a;color:#fff;padding:12px 14px;border-radius:14px;display:none;z-index:99}
+
+    /* Decorative Om glyphs */
+    .om-deco{position:absolute;inset:auto -20px -20px auto;font-size:220px;opacity:.05;pointer-events:none}
+  </style>
+</head>
+<body>
+  <!-- Animated backgrounds -->
+  <div class="bg-grid"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand" aria-label="Surya Naik Youth Association home">
+        <span class="sun" aria-hidden="true">☀️</span>
+        <span>MEGHAVATH SURYA NAIK YOUTH ASSOCIATION</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#register">Register</a>
+        <a href="#members">Members</a>
+        <a href="#vinayaka">Vinayaka Chavithi</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="cta" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Join Youth</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="hero">
+    <div class="container hero-card">
+      <div class="hero-grid">
+        <div>
+          <span class="badge">Harshaguda • Maheshwaram • Ranga Reddy • Telangana</span>
+          <h1 class="headline">Meghavath Surya Naik Youth Association</h1>
+          <p class="sub">We are a united youth community from <strong>Harshaguda Village</strong>, <strong>Maheshwaram Mandal</strong>, <strong>Ranga Reddy District</strong>, Telangana, India — serving society with passion, culture, and technology. Register now to get your <strong>official member number</strong> and participate in events, especially <strong>Vinayaka Chavithi</strong> seva.</p>
+          <div class="mt-6">
+            <button class="btn primary" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Register Now</button>
+            <button class="btn ghost" onclick="document.getElementById('vinayaka').scrollIntoView({behavior:'smooth'})">Festival Plans</button>
+          </div>
+        </div>
+        <div class="floating-ganesha" aria-label="Decorative Ganesha illustration">
+          <!-- Minimal, respectful festive illustration (inline SVG) -->
+          <svg viewBox="0 0 600 600" role="img" aria-label="Vinayaka (Ganesha) festive art">
+            <defs>
+              <linearGradient id="gold" x1="0" x2="1">
+                <stop offset="0%" stop-color="#ffcc00"/>
+                <stop offset="100%" stop-color="#ffd84d"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M300 140c-60 0-110 50-110 110s50 100 110 100 110-40 110-100-50-110-110-110z"/>
+              <path d="M250 270c-40 0-60 30-60 60 0 30 25 55 55 55 15 0 33-8 45-24"/>
+              <path d="M350 270c40 0 60 30 60 60 0 30-25 55-55 55-15 0-33-8-45-24"/>
+              <path d="M300 175c-12 0-22 10-22 22s10 22 22 22 22-10 22-22-10-22-22-22z"/>
+              <path d="M220 210c-22 12-45 38-45 70"/>
+              <path d="M380 210c22 12 45 38 45 70"/>
+              <path d="M300 350c-10 30-10 60 0 90"/>
+              <path d="M280 440c-20 10-40 10-60 0"/>
+              <path d="M320 440c20 10 40 10 60 0"/>
+              <!-- diy toran -->
+              <path d="M80 80h440"/>
+              <path d="M100 80c20 40 40 40 60 0m40 0c20 40 40 40 60 0m40 0c20 40 40 40 60 0m40 0c20 40 40 40 60 0"/>
+            </g>
+            <!-- Om (ॐ) decorative on both sides -->
+            <text x="40" y="560" font-size="110" fill="rgba(255,204,0,.25)">ॐ</text>
+            <text x="520" y="560" font-size="110" text-anchor="end" fill="rgba(255,204,0,.25)">ॐ</text>
+          </svg>
+        </div>
+      </div>
+      <div class="scroll-cue muted">Scroll ↓</div>
+    </div>
+  </main>
+
+  <!-- Quick highlight cards -->
+  <section class="section" aria-label="Highlights">
+    <div class="container grid-3">
+      <div class="card">
+        <div class="pill">🌱 Youth Service</div>
+        <h3 class="mt-4 mb-0">Community First</h3>
+        <p class="muted">Cleanups, plantation drives, blood donation, food distribution, and more. Join to make Harshaguda shine.</p>
+      </div>
+      <div class="card">
+        <div class="pill">📜 Official ID</div>
+        <h3 class="mt-4 mb-0">Member Number</h3>
+        <p class="muted">Every registration gets a unique sequential number: 1, 2, 3… Saved on your device and in downloadable CSV.</p>
+      </div>
+      <div class="card">
+        <div class="pill">🕉️ Festival</div>
+        <h3 class="mt-4 mb-0">Vinayaka Chavithi</h3>
+        <p class="muted">Plan, volunteer, and contribute to eco-friendly celebrations with cultural programs and service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Section -->
+  <section id="register" class="section" aria-label="Registration">
+    <div class="container">
+      <div class="card" style="position:relative;overflow:hidden">
+        <div class="om-deco">ॐ</div>
+        <div class="pill">📝 Registration</div>
+        <h2 class="mt-4">Become a Member</h2>
+        <p class="muted">Fill the form below. Your <strong>Member Number</strong> will be assigned automatically and stored locally on this device. You can also <strong>download CSV</strong> anytime. (For multi-admin/online storage, connect this form to Google Sheets or a database later.)</p>
+
+        <form id="memberForm" autocomplete="on">
+          <div>
+            <label for="name">Full Name</label>
+            <input id="name" name="name" placeholder="Enter your full name" required />
+          </div>
+          <div>
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="" disabled selected>Select…</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="father">Father's Name</label>
+            <input id="father" name="father" placeholder="Enter father's name" required />
+          </div>
+          <div>
+            <label for="mother">Mother's Name</label>
+            <input id="mother" name="mother" placeholder="Enter mother's name" required />
+          </div>
+
+          <div>
+            <label for="phone">Mobile Number</label>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" pattern="[0-9]{10}" placeholder="10-digit mobile" required />
+          </div>
+          <div>
+            <label for="dob">Date of Birth</label>
+            <input id="dob" name="dob" type="date" />
+          </div>
+
+          <div class="full">
+            <label for="address">Address</label>
+            <input id="address" name="address" placeholder="House/Street, Harshaguda, Maheshwaram, Ranga Reddy, Telangana" required />
+          </div>
+
+          <div class="full">
+
+          <div class="full mt-4" style="display:flex;gap:10px;flex-wrap:wrap">
+            <button type="submit" class="btn primary">Submit & Get Member No.</button>
+            <button type="button" id="downloadCsv" class="btn ghost">Download CSV</button>
+            <button type="button" id="clearAll" class="btn ghost" title="Resets local data on this device">Clear Local Data</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Members Section -->
+  <section id="members" class="section" aria-label="Members List">
+    <div class="container">
+      <div class="card">
+        <div class="pill">📋 Directory</div>
+        <h2 class="mt-4">Registered Members</h2>
+        <div class="mt-4" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <input id="search" placeholder="Search by name, phone, or number…" style="max-width:320px" />
+          <select id="sortBy">
+            <option value="number">Sort by Number (↑)</option>
+            <option value="name">Sort by Name (A–Z)</option>
+            <option value="recent">Sort by Recent</option>
+          </select>
+          <span class="muted" id="count"></span>
+        </div>
+
+        <div class="mt-6" style="overflow:auto">
+          <table aria-describedby="count">
+            <thead>
+              <tr>
+                <th style="min-width:90px">No.</th>
+                <th style="min-width:200px">Name</th>
+                <th>Father</th>
+                <th>Mother</th>
+                <th style="min-width:140px">Phone</th>
+                <th>Address</th>     
+              </tr>
+            </thead>
+            <tbody id="memberRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vinayaka Chavithi Plans -->
+  <section id="vinayaka" class="section" aria-label="Vinayaka Chavithi Plans">
+    <div class="container">
+      <div class="card">
+        <div class="pill">🕉️ Vinayaka Chavithi</div>
+        <h2 class="mt-4">Festival Service Plan</h2>
+        <p class="muted">Our youth will lead an eco-friendly celebration with clay idols, no plastic, and community seva. Below is the proposed plan; volunteers can pick a role while registering (add your skills).</p>
+
+        <div class="timeline mt-6">
+          <div class="event">
+            <h4 class="mt-0 mb-0">Day -3 to Day -1: Preparation</h4>
+            <p class="muted">Venue cleaning, decorations (torans, lights), stage setup, first-aid desk, water station, and security planning.</p>
+          </div>
+          <div class="event">
+            <h4 class="mt-0 mb-0">Day 0 (Chavithi): Pooja & Cultural</h4>
+            <p class="muted">Morning pooja, prasadam distribution, bhajans, dance, and youth felicitation for meritorious students.</p>
+          </div>
+          <div class="event">
+            <h4 class="mt-0 mb-0">Day +1 to +9: Daily Seva</h4>
+            <p class="muted">Annadanam, cleanliness drive, competitions for children, and awareness sessions (health, education, skill training).</p>
+          </div>
+          <div class="event">
+            <h4 class="mt-0 mb-0">Ananth Chaturdashi: Visarjan</h4>
+            <p class="muted">Eco-friendly immersion at designated spot with safety measures. Post-event cleanup and gratitude meet.</p>
+          </div>
+        </div>
+
+        <div class="mt-6" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+          <div class="card">
+            <h4 class="mt-0">Volunteer Teams</h4>
+            <ul class="muted">
+              <li>Decoration & Stage</li>
+              <li>Prasadam & Annadanam</li>
+              <li>Discipline & Security</li>
+              <li>Cleanliness & Green</li>
+              <li>Cultural & Anchoring</li>
+              <li>Medical & First Aid</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">Support & Funds</h4>
+            <ul class="muted">
+              <li>Local donors and alumni outreach</li>
+              <li>Transparent expense sheet (share CSV)</li>
+              <li>Encourage clay idols; ban plastic</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">Respect & Safety</h4>
+            <ul class="muted">
+              <li>Respect all devotees and elders</li>
+              <li>Follow police & GHMC guidelines</li>
+              <li>Sound control (no noise pollution)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section" aria-label="About">
+    <div class="container">
+      <div class="card">
+        <div class="pill">📍 Address</div>
+        <h2 class="mt-4">We are from Harshaguda</h2>
+        <p class="muted">Surya Naik Youth Association (SNYA) — India, Telangana, Ranga Reddy District, <strong>Maheshwaram Mandal</strong>, <strong>Harshaguda Village</strong>.</p>
+        <div class="grid-3 mt-6">
+          <div class="card">
+            <h4 class="mt-0">Our Vision</h4>
+            <p class="muted">Empower youth with service, skills, and culture; make Harshaguda a model village.</p>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">What We Do</h4>
+            <p class="muted">Community drives, sports, career guidance, festival management, and social welfare activities.</p>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">How to Help</h4>
+            <p class="muted">Register, volunteer, donate materials, offer training, or share opportunities for the youth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <section id="contact" class="section" aria-label="Contact">
+    <div class="container">
+      <div class="card">
+        <div class="pill">📞 Contact</div>
+        <h2 class="mt-4">Get in Touch</h2>
+        <p class="muted">For collaboration, sponsorships, or event support, reach out to the association leads. (Replace sample numbers below with real contacts.)</p>
+        <div class="grid-3 mt-6">
+          <div class="card">
+            <h4 class="mt-0">President</h4>
+            <p class="muted">+91 90000 00000</p>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">General Secretary</h4>
+            <p class="muted">+91 91111 11111</p>
+          </div>
+          <div class="card">
+            <h4 class="mt-0">Festival Coordinator</h4>
+            <p class="muted">+91 92222 22222</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p class="muted">© <span id="year"></span> Surya Naik Youth Association • Harshaguda, Maheshwaram, Ranga Reddy, Telangana</p>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ========= JavaScript (No build needed) ========= -->
+  <script>
+    // ====== Utilities
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const storeKey = 'snya_members_v1';
+    const toastEl = $('#toast');
+
+    function showToast(msg){
+      toastEl.textContent = msg;
+      toastEl.style.display = 'block';
+      setTimeout(()=> toastEl.style.display='none', 3000);
+    }
+
+    function getMembers(){
+      try{ return JSON.parse(localStorage.getItem(storeKey)) || []; }catch{ return []; }
+    }
+    function setMembers(list){
+      localStorage.setItem(storeKey, JSON.stringify(list));
+    }
+    function nextNumber(){
+      const list = getMembers();
+      if(list.length === 0) return 1;
+      return Math.max(...list.map(m => m.number || 0)) + 1;
+    }
+
+    // ====== Registration
+    const form = $('#memberForm');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      // Basic validation beyond required attributes
+      if(!/^\d{10}$/.test(data.phone || '')){ showToast('Please enter a valid 10-digit mobile number.'); return; }
+      const member = {
+        number: nextNumber(),
+        name: (data.name||'').trim(),
+        gender: data.gender||'',
+        father: (data.father||'').trim(),
+        mother: (data.mother||'').trim(),
+        phone: (data.phone||'').trim(),
+        dob: data.dob||'',
+        address: (data.address||'').trim(),
+      };
+      const list = getMembers();
+      // Prevent duplicate phone numbers
+      if(list.some(m => m.phone === member.phone)){
+        showToast('This phone number is already registered.');
+        return;
+      }
+      list.push(member); setMembers(list); renderMembers();
+      form.reset();
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.3 } });
+      showToast(`Welcome, ${member.name}! Your Member No. is ${member.number}`);
+    });
+
+    // ====== CSV Download
+    $('#downloadCsv').addEventListener('click', ()=>{
+      const rows = getMembers();
+      if(rows.length===0){ showToast('No members yet. Register first.'); return; }
+      const headers = ['number','name','gender','father','mother','phone','dob','address','education','skills','notes','createdAt'];
+      const csv = [headers.join(',')].concat(rows.map(r=> headers.map(h=>`"${(r[h]||'').toString().replaceAll('"','""')}"`).join(','))).join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = Object.assign(document.createElement('a'), {href:url, download:'snya_members.csv'});
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      showToast('CSV downloaded.');
+    });
+
+    // ====== Clear local data
+    $('#clearAll').addEventListener('click', ()=>{
+      if(confirm('This clears member data stored on THIS device only. Continue?')){
+        localStorage.removeItem(storeKey); renderMembers(); showToast('Local data cleared.');
+      }
+    });
+
+    // ====== Members table rendering with search & sort
+    const rowsEl = $('#memberRows');
+    const searchEl = $('#search');
+    const sortEl = $('#sortBy');
+    const countEl = $('#count');
+
+    function renderMembers(){
+      const q = (searchEl.value||'').toLowerCase().trim();
+      let list = getMembers();
+      // sort
+      const sortBy = sortEl.value;
+      if(sortBy==='number') list.sort((a,b)=> (a.number||0) - (b.number||0));
+      if(sortBy==='name') list.sort((a,b)=> (a.name||'').localeCompare(b.name||''));
+      if(sortBy==='recent') list.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt));
+      // filter
+      if(q){
+        list = list.filter(m =>
+          String(m.number).includes(q) ||
+          (m.name||'').toLowerCase().includes(q) ||
+          (m.phone||'').toLowerCase().includes(q)
+        );
+      }
+      countEl.textContent = `${list.length} member${list.length!==1?'s':''}`;
+
+      rowsEl.innerHTML = list.map(m=> `
+        <tr>
+          <td><strong>${m.number}</strong></td>
+          <td>${escapeHtml(m.name)}</td>
+          <td>${escapeHtml(m.father||'')}</td>
+          <td>${escapeHtml(m.mother||'')}</td>
+          <td>${escapeHtml(m.phone||'')}</td>
+          <td>${escapeHtml(m.address||'')}</td>
+        </tr>
+      `).join('');
+    }
+
+    function escapeHtml(s){ return (s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    searchEl.addEventListener('input', renderMembers);
+    sortEl.addEventListener('change', renderMembers);
+
+    // ====== Header year
+    $('#year').textContent = new Date().getFullYear();
+
+    // ====== Delightful animations
+    window.addEventListener('load', ()=>{
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.headline',{y:30,opacity:0,duration:.8,ease:'power3.out'});
+      gsap.from('.hero .sub',{y:20,opacity:0,delay:.1,duration:.8});
+      gsap.from('.floating-ganesha',{y:30,opacity:0,scale:.98,delay:.15,duration:1});
+      gsap.utils.toArray('.section .card').forEach((el,i)=>{
+        gsap.from(el,{y:40,opacity:0,scale:0.98,duration:.7,delay:i*0.05,scrollTrigger:{trigger:el,start:'top 85%'}});
+      });
+      renderMembers();
+    });
+  </script>
+</body>
+</html>
